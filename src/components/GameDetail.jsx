@@ -1,97 +1,70 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 // Styling and Animation
 import styled from 'styled-components';
-import { motion, AnimatePresence, AnimateSharedLayout } from 'framer-motion';
-import starEmpty from '../img/star-empty.png';
-import starFull from '../img/star-full.png';
+import { motion } from 'framer-motion';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 // utils
-import { resizeImg } from '../util';
+import ImageGallery from './ImageGallery';
+import GameRatingsPercentage from './GameRatingsPercentage';
+import GameDetailHeader from './GameDetailHeader';
+import GameDetailInfo from './GameDetailInfo';
 
-const GameDetail = ({ pathId }) => {
+const GameDetail = () => {
   const history = useHistory();
   const { screen, game, isLoading } = useSelector((state) => state.gameDetail);
 
-  const exitGameHandler = (e) => {
+  const exitGameHandler = (e, btnClick) => {
     const el = e.target;
-    if (el.classList.contains('card-shadow')) {
+    console.log(el);
+
+    if (el.classList.contains('card-shadow') || btnClick) {
       document.body.style.overflow = 'auto';
       history.goBack();
     }
   };
-  const getStars = () => {
-    const stars = [];
-    const rating = (game.rating = Math.floor(game.rating));
-    for (let i = 1; i <= 5; i++) {
-      i <= rating
-        ? stars.push(<img alt='star' key={i} src={starFull}></img>)
-        : stars.push(<img alt='star' key={i} src={starEmpty}></img>);
-    }
-    return stars;
-  };
+
+  // handle Images
+  // add gameImage to fetched screen images and display in gallery
   const screens = screen.results.map((s) => s);
   const bg = {
     image: game.background_image,
     id: 1,
   };
   const images = [bg, ...screens];
-  const [mainImg, setMainImg] = useState('');
-  console.log(game.publishers);
+
   return (
     <>
       {!isLoading && (
         <CardShadow onClick={exitGameHandler} className='card-shadow'>
-          <Detail layoutId={game.id} className='detail'>
-            <Media className='media'>
-              <motion.img
-                src={mainImg.image || game.background_image}
-                alt={game.name}
-              />
+          <StyledDetailContainer layoutId={game.id} className='detail'>
+            <button className='exitBtn' onClick={(e) => exitGameHandler(e, 1)}>
+              <FontAwesomeIcon icon={faTimesCircle} size='3x' />
+            </button>
+            <ImageGallery
+              imageList={images}
+              currentGame={game}
+              className='gallery'
+            />
 
-              <Gallery className='gallery'>
-                {images.map((screen) => (
-                  <img
-                    src={resizeImg(screen.image, 1280)}
-                    alt={game.name}
-                    loading='lazy'
-                    key={screen.id}
-                    onClick={() => setMainImg(screen)}
-                  />
-                ))}
-              </Gallery>
-            </Media>
-
-            <Stats className='stats'>
-              <h2 className='game-title'>{game.name}</h2>
-              <h3 className='game-publishers'>{game.publishers[0].name}</h3>
-              <p className='game-released'>
-                Released: <span>{game.released}</span>
-              </p>
-              <div className='rating'>
-                <p>Rating: {game.rating}</p>
-                <p>{getStars()}</p>
+            <StyledGameStats className='stats'>
+              <div className='game-stats'>
+                <GameDetailHeader game={game} />
+                <GameDetailInfo game={game} />
               </div>
-              <Info className='info'>
-                <div className='website'>
-                  <p>Website:</p>
-                  <a href={game.website}>{game.website}</a>
-                </div>
-                <h4>Platforms</h4>
-                <Platforms className='platforms'>
-                  {game.platforms.map((data) => (
-                    <p key={data.platform.id}>{data.platform.name}</p>
-                  ))}
-                </Platforms>
-              </Info>
-            </Stats>
+              <div className='game-ratings'>
+                <GameRatingsPercentage ratings={game.ratings} />
+              </div>
+            </StyledGameStats>
             <Description className='description'>
               <h3 className='description-header'>Description</h3>
               <p
                 dangerouslySetInnerHTML={{ __html: `${game.description}` }}
               ></p>
             </Description>
-          </Detail>
+          </StyledDetailContainer>
         </CardShadow>
       )}
     </>
@@ -105,118 +78,96 @@ const CardShadow = styled(motion.div)`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 5;
+  z-index: 50;
 `;
 
-const Detail = styled(motion.div)`
-  width: 90%;
-  height: 90%;
-  top: 5%;
+const StyledDetailContainer = styled(motion.div)`
+  height: 100%;
   border-radius: 0.25rem;
-  padding: 5rem;
+  padding: 3rem;
   background: #06021b;
   position: absolute;
-  left: 5%;
   overflow: scroll;
   color: black;
-  z-index: 10;
+  z-index: 100;
   display: grid;
-  grid-template-columns: 3fr 2fr;
-  box-shadow: 10px 10px 60px rgba(97, 97, 97, 0.1),
-    -20px -20px 60px rgba(0, 0, 0, 0.4);
+  @media (min-width: 992px) {
+    padding: 5rem 3rem;
+    box-shadow: 20px 20px 60px rgba(2, 158, 219, 0.1),
+      -20px -20px 60px rgba(2, 158, 219, 0.1);
+    width: 90%;
+    height: 90%;
+    top: 5%;
+    left: 5%;
+  }
+  @media (min-width: 1200px) {
+    grid-template-columns: 3fr 2fr;
+    /* padding: 5rem; */
+  }
+  @media (min-width: 1400px) {
+    padding: 5rem;
+  }
   &::-webkit-scrollbar {
-    width: 0.6rem;
+    width: 0.2rem;
     background: transparent;
     height: 50%;
   }
   &::-webkit-scrollbar-thumb {
-    background-color: #34ffff;
+    background-color: rgba(78, 234, 255, 0.6);
+
     border-radius: 1rem;
     border-color: transparent;
   }
   &::-webkit-scrollbar-track {
     background: transparent;
   }
-  img {
-    width: 100%;
-  }
-  .game-title {
-    font-size: 2.5rem;
-    color: #eeeeee;
-    margin: 0 0 1rem;
-    padding: 0;
-  }
-  .game-publishers {
-    font-size: 1.5rem;
-    color: #a3a2a2;
-    margin: 0;
-    padding: 0;
-  }
-  .game-released {
-    margin-bottom: 2rem;
+  .exitBtn {
+    position: fixed;
+    right: 5%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    @media (min-width: 992px) {
+      right: 7%;
+      top: 5%;
+    }
+    @media (min-width: 992px) {
+      top: 10%;
+    }
+    svg {
+      display: inline-block;
+      color: #35bffe;
+      &:hover {
+        color: rgba(252, 28, 103, 0.7);
+      }
+    }
   }
 `;
 
-const Stats = styled(motion.div)`
-  justify-content: space-between;
-  flex-wrap: wrap;
+const StyledGameStats = styled(motion.div)`
   width: 100%;
-  margin-left: 3rem;
-
-  img {
-    width: 2rem;
-    height: 2rem;
-    display: inline;
+  /* margin-left: 3rem; */
+  /* flex-direction: column; */
+  grid-row: 1;
+  @media (min-width: 992px) {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
+    /* grid-column: 2; */
+    padding-bottom: 2rem;
+    .game-stats {
+      grid-column: 1;
+    }
+    .game-ratings {
+      grid-column: 2;
+    }
   }
-  .rating {
+  @media (min-width: 1200px) {
     display: flex;
-    justify-content: space-between;
-
-    p {
-      color: #eeeeee;
-      font-size: 1.5rem;
-    }
-  }
-`;
-
-const Info = styled(motion.div)`
-  margin-top: 1rem;
-  font-size: 1.5rem;
-  color: #eee;
-  .website{
-    
-    justify-content: space-between;
-    margin-bottom: 2rem;
-    p{
-      font-size: 1.5rem;
-    }
-    a{
-      font-size: 1.2rem;
-    }
-
-  }
-  }
-`;
-
-const Platforms = styled(motion.div)`
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 2rem;
-
-  p {
-    color: #eee;
-    margin-right: 1rem;
-  }
-  img {
+    flex-direction: column;
+    grid-column: 2;
     margin-left: 3rem;
-    width: 5rem;
-  }
-`;
-
-const Media = styled(motion.div)`
-  img {
-    width: 100%;
-    height: 100%:
   }
 `;
 
@@ -239,18 +190,6 @@ const Description = styled(motion.div)`
     margin-top: 0;
     padding-top: 0;
     margin-bottom: 2rem;
-  }
-`;
-
-const Gallery = styled.div`
-  margin-top: 0.5rem;
-  grid-area: 3/1;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 0.5rem;
-  img {
-    width: 100%;
-    height: 100%;
   }
 `;
 

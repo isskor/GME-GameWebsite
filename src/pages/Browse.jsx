@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useHistory, useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 // Styling and Animation
 import styled from 'styled-components';
 import { AnimatePresence, motion, AnimateSharedLayout } from 'framer-motion';
@@ -18,96 +18,86 @@ import {
   resetPageNumber,
 } from '../actions/searchAction';
 import Pagination from '../components/Pagination';
-import usePagination from '../components/usePagination';
+import SearchForm from '../components/SearchForm';
+import FilterMobileButton from '../components/FilterMobileButton';
 const Browse = () => {
   const dispatch = useDispatch();
   const [textInput, setTextInput] = useState('');
   // get Current Location
   const location = useLocation();
   const params = useParams();
-  const history = useHistory();
-  useSearchFilter();
   const pathId = location.pathname.split('/')[2];
   // genres
-  const [genrePath, setGenrePath] = useState([]);
 
   //fetch data
   const { searched } = useSelector((state) => state.games);
-  const { setCurrentPage } = usePagination(searched);
-  useEffect(() => {
-    if (params.id) return;
-    dispatch(fetchSearch(textInput, location.search));
-  }, [location.search]);
+  // media
+  const [windowWidth, setWindowWidth] = useState(null);
 
-  const inputHandler = (e) => {
-    setTextInput(e.target.value);
-  };
-  const submitSearch = (e) => {
-    e.preventDefault();
-    dispatch(fetchSearch(textInput, location.search));
-    dispatch(resetPageNumber());
-    currentPageHandler(100);
-    // dispatch(fetchSearch(textInput, location.search));
-  };
-  const currentPageHandler = (page) => {
-    setCurrentPage(page);
-    console.log('asd');
-  };
-  // sortby
-  const sortByHandler = (sort) => {
-    dispatch(filterSortBy(sort));
-  };
-  // filter page size
-  const pageSizeHandler = (pages) => {
-    dispatch(filterPageSize(pages));
-  };
+  const [showSidebar, setShowSidebar] = useState(false);
+  // window.addEventListener('resize', () => {
+  //   if (window.innerWidth > 992) setShowSidebar(true);
+  // });
+  useEffect(() => {
+    // check width on initial render
+    if (window.innerWidth > 992) setShowSidebar(true);
+    // check width when resizing window
+    function handleWidthSize() {
+      if (window.innerWidth > 992) setShowSidebar(true);
+    }
+    // add event listener
+    window.addEventListener('resize', handleWidthSize);
+    // remove eventlistener on unmount
+    return () => window.removeEventListener('resize', handleWidthSize);
+  });
+  // if (window.innerWidth > 992) setShowSidebar(true);
+
+  // console.log('browse rerender');
+  // useSearchFilter();
+  // useEffect(() => {
+  //   if (params.id) return;
+  //   dispatch(fetchSearch(textInput, location.search));
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [location.search]);
+
+  // const inputHandler = (e) => {
+  //   setTextInput(e.target.value);
+  // };
+  // const submitSearch = (e) => {
+  //   e.preventDefault();
+  //   dispatch(fetchSearch(textInput, location.search));
+  //   dispatch(resetPageNumber());
+  // };
+
+  // // sortby
+  // const sortByHandler = (sort) => {
+  //   dispatch(filterSortBy(sort));
+  // };
+  // // filter page size
+  // const pageSizeHandler = (pages) => {
+  //   dispatch(filterPageSize(pages));
+  // };
   return (
     <div>
       <StyledBanner className='banner'>
         {/* <img src={bg} alt='' /> */}
+        <div className='line'></div>
       </StyledBanner>
       <StyledPageTitle>Games</StyledPageTitle>
-      <StyledContainer className='container'>
-        <form className='searchForm ' onSubmit={submitSearch}>
-          <div className='form-group searchInput'>
-            <input
-              type='text'
-              id='search'
-              placeholder='search games'
-              onChange={inputHandler}
-            />
+
+      <StyledContainer
+        className={`content-container ${showSidebar ? 'filtersActive' : ''}`}
+      >
+        {showSidebar && (
+          <div className='sidebar'>
+            <Sidebar2 setShowSidebar={setShowSidebar} />
           </div>
-          <div className='form-group sortInput'>
-            <select
-              name='sortBy'
-              id='sortBy'
-              onChange={(e) => sortByHandler(e.target.value)}
-            >
-              <option value='-added'>Newest</option>
-              <option value='-ratings'>Rating</option>
-              <option value='-released'>Released</option>
-            </select>
-          </div>
-          <div className='form-group pageInput'>
-            <select
-              name='pages'
-              id='pages'
-              onClick={(e) => pageSizeHandler(e.target.value)}
-            >
-              <option value='10'>10</option>
-              <option value='20'>20</option>
-              <option value='30'>30</option>
-            </select>
-          </div>
-        </form>
-        <div className='sidebar'>
-          <Sidebar2
-            className='sidebar'
-            searchInput={textInput}
-            setGenrePath={setGenrePath}
-            genrePath={genrePath}
-          />
-        </div>
+        )}
+
+        <SearchForm />
+        <button className='showFiltersBtn' onClick={() => setShowSidebar(true)}>
+          show filters
+        </button>
         {searched.games.length > 0 && (
           <>
             {/* <div className='header'>
@@ -141,87 +131,73 @@ const Browse = () => {
 
 const StyledBanner = styled.div`
   background-image: url(${bg});
-  background-color: #6482aa;
+  background-color: #addbe9;
   background-blend-mode: multiply;
   background-size: cover;
-  background-position-y: 80%;
-  /* filter: blur(1px); */
+  /* background-position-y: 70%; */
+  background-position: center;
   width: 100%;
   height: 500px;
   z-index: -1;
   overflow: hidden;
   position: absolute;
-  border-bottom: 2px solid #132575;
-  /* box-shadow: 0 60px 100px #35e7bb; */
-  /* img {
+
+  .line {
     width: 100%;
-    object-fit: cover;
-    object-position: 50% 100%;
-  } */
+    height: 3px;
+    position: absolute;
+    bottom: 0;
+    background-color: #132575;
+  }
 `;
 
 const StyledContainer = styled.div`
-  width: 80%;
+  /* width: 80%; */
+  transition: all 0.3s ease;
+  width: 90%;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: auto;
-  grid-gap: 1rem;
-  .sidebar {
-    grid-area: 1/1/10/3;
-  }
-
-  .searchForm {
-    grid-area: 1/3/1/11;
-    padding: 0.75rem 0.25rem;
-    display: flex;
-    color: white;
-    align-items: center;
-    box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.2);
-    background: #161139;
-    border-radius: 4px;
-    justify-content: space-evenly;
-    .searchInput {
-      flex-basis: 80%;
-    }
-
-    input,
-    select {
-      padding: 1rem;
-      margin: 0 1rem;
-      border-radius: 4px;
-      outline: none;
-      border: none;
-      background-color: #262247;
-      color: white;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-    }
-  }
-
-  .header {
-    grid-area: 2/ 3 / 5 / 10;
-    background-color: black;
-    overflow: hidden;
+  @media (min-width: 992px) {
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 270px;
+    grid-template-columns: repeat(11, 1fr);
+    grid-template-rows: 80px 1fr 80px;
+    grid-gap: 1rem;
+  }
+  .sidebar {
+    /* display: none; */
+    z-index: 10;
+    position: absolute;
+    width: 50%;
+    max-width: 220px;
+    top: 60px;
+    left: 0;
+    height: 100%;
     background: #06021b;
-
-    h2 {
-      grid-area: 1/1;
-      justify-self: start;
-      padding: 1rem;
-      font-size: 5rem;
-      color: rgba(37, 24, 153, 0.6);
-    }
-    img {
-      grid-area: 1/1;
+    @media (min-width: 992px) {
+      grid-area: 1/1/3/3;
+      position: static;
       width: 100%;
-      object-fit: contain;
+      max-width: 100%;
+      z-index: 0;
+    }
+  }
+  .showFiltersBtn {
+    color: #fff;
+    padding: 0.75rem 1.25rem;
+    background-color: #262247;
+    border: none;
+    outline: none;
+    border: 4px;
+    margin-top: 0.5rem;
+    @media (min-width: 992px) {
+      display: none;
+    }
+  }
+  &.filtersActive {
+    margin-left: 30%;
+    width: 70%;
+    @media (min-width: 992px) {
+      margin-left: auto;
+      width: 90%;
     }
   }
 `;
@@ -229,16 +205,37 @@ const StyledContainer = styled.div`
 const StyledPageTitle = styled.h1`
   width: 80%;
   margin: 0 auto;
-  padding-top: 12rem;
-  font-size: 6rem;
+
+  padding-top: 6rem;
+
+  font-size: 3rem;
   color: #c2c2c2;
+  @media (min-width: 576px) {
+    font-size: 4rem;
+  }
+  @media (min-width: 992px) {
+    font-size: 6rem;
+    padding-top: 12rem;
+  }
 `;
 const StyledGamesList = styled(motion.div)`
-  grid-area: 2/ 3/ 13/ 11;
-
+  margin-top: 1rem;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   grid-column-gap: 1rem;
   grid-row-gap: 1rem;
+  @media (min-width: 576px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media (min-width: 992px) {
+    margin-top: 0;
+    grid-template-columns: repeat(4, 1fr);
+    grid-area: 2/ 3/ 3/ 12;
+  }
+`;
+const StyledContents = styled(motion.div)`
+  .filtersActive {
+    margin-left: 30%;
+  }
 `;
 export default Browse;

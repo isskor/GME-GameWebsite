@@ -47,7 +47,13 @@ export const gameScreenshotURLS = (gameId) =>
 // searched game
 
 export const searchGameURL = (game_name = '') =>
-  `${base_url}games?key=${API_KEY}&search=${game_name}&page_size=10`;
+  `${base_url}games?key=${API_KEY}&search=${game_name}&search_precise=true`;
 
 export const getGenresURL = () =>
   `${base_url}genres?key=${API_KEY}&page_size=20`;
+export const getPlatformsURL = () =>
+  `${base_url}platforms?key=${API_KEY}&page_size=20`;
+export const getStoresURL = () =>
+  `${base_url}stores?key=${API_KEY}&page_size=20`;
+export const getDevURL = () =>
+  `${base_url}developers??key=${API_KEY}&page_size=20`;

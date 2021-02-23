@@ -2,15 +2,21 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadGames, nextPage } from '../actions/gamesAction';
 import { useLocation } from 'react-router-dom';
+// font awesome icons
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 // Styling and Animation
 import styled from 'styled-components';
 import { AnimatePresence, motion, AnimateSharedLayout } from 'framer-motion';
 
 // Components
-import Game from '../components/Game';
+
 import GameDetail from '../components/GameDetail';
 
 import HomeBackground from '../components/HomeBackground';
+import GameList from '../components/GameList';
+import HeroSection from '../components/HeroSection';
+
 const Home = () => {
   // get Current Location
   const location = useLocation();
@@ -31,49 +37,21 @@ const Home = () => {
   } = useSelector((state) => state.games);
   const gameLists = [popularGames, upcomingGames, newGames];
 
-  const gamePage = (gameList, direction) => {
-    dispatch(nextPage(gameList, direction));
-  };
-
   return (
     <>
-      <HomeBackground backgroundGames={showcaseGames} />
       <StyledGamesContainer className='App'>
+        <HomeBackground backgroundGames={showcaseGames} />
         <AnimateSharedLayout type='crossfade'>
           <AnimatePresence>
             {pathId && <GameDetail pathId={pathId} />}
           </AnimatePresence>
+          <HeroSection />
           {/* loop games List */}
           {gameLists.map((list) => (
-            <div key={list.title}>
+            <div className='listContainer' key={list.title}>
               <h2>{list.title}</h2>
-              <StyledList className='styled-list'>
-                <figure>
-                  {list.prev ? (
-                    <button
-                      onClick={() => gamePage(list, 'prev')}
-                      disabled={!list.prev}
-                    >
-                      Arrow
-                    </button>
-                  ) : (
-                    'disabled'
-                  )}
-                </figure>
-                <StyledGamesList>
-                  {/* Loop games within list */}
-                  {list.games.map((game) => (
-                    <Game
-                      name={game.name}
-                      released={game.released}
-                      id={game.id}
-                      key={game.id}
-                      image={game.background_image}
-                    />
-                  ))}
-                </StyledGamesList>
-                <figure onClick={() => gamePage(list, 'next')}>Arrow</figure>
-              </StyledList>
+              <div className='line'></div>
+              <GameList list={list} />
             </div>
           ))}
         </AnimateSharedLayout>
@@ -82,22 +60,32 @@ const Home = () => {
   );
 };
 const StyledGamesContainer = styled(motion.div)`
-  padding: 0rem 5rem;
-  h2 {
-    padding: 5rem 0rem;
+  @media (min-width: 992px) {
+    padding: 0rem 5rem;
   }
-`;
-const StyledGamesList = styled(motion.div)`
-  flex-basis: 90%;
-  min-height: 80vh;
-  display: grid;
-  grid-template-columns: repeat(5, minmax(250px, 1fr));
-  grid-column-gap: 1rem;
-  grid-row-gap: 1rem;
-`;
 
-const StyledList = styled.div`
-  display: flex;
+  .listContainer {
+    padding: 2rem 0;
+    h2 {
+      font-size: 2.5rem;
+      position: relative;
+      color: rgb(124, 124, 124);
+      display: inline;
+      margin-left: 10%;
+      /* @media (min-width: 992px) {
+        margin-left: 0;
+      } */
+      &::after {
+        content: '';
+        width: 50%;
+        height: 5px;
+        background-color: #35bffe;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+      }
+    }
+  }
 `;
 
 export default Home;

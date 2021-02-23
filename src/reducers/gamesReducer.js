@@ -4,18 +4,21 @@ const State = {
     games: [],
     prev: '',
     next: '',
+    isLoading: false,
   },
   upcomingGames: {
     title: 'Upcoming Games',
     games: [],
     prev: '',
     next: '',
+    isLoading: false,
   },
   newGames: {
     title: 'New Games',
     games: [],
     prev: '',
     next: '',
+    isLoading: false,
   },
   searched: {
     title: 'Searched',
@@ -26,6 +29,7 @@ const State = {
   },
   showcaseGames: [],
   genres: [],
+  platforms: [],
 };
 
 const gamesReducer = (state = State, action) => {
@@ -53,6 +57,7 @@ const gamesReducer = (state = State, action) => {
           next: action.payload.newGamesNext,
         },
         genres: action.payload.genres,
+        platforms: action.payload.platforms,
       };
     case 'POPULAR_CHANGE_PAGE':
       return {
@@ -62,6 +67,7 @@ const gamesReducer = (state = State, action) => {
           games: action.payload.p,
           prev: action.payload.pPrev,
           next: action.payload.pNext,
+          isLoading: false,
         },
       };
     case 'UPCOMING_CHANGE_PAGE':
@@ -72,6 +78,7 @@ const gamesReducer = (state = State, action) => {
           games: action.payload.p,
           prev: action.payload.pPrev,
           next: action.payload.pNext,
+          isLoading: false,
         },
       };
     case 'NEWGAMES_CHANGE_PAGE':
@@ -82,6 +89,7 @@ const gamesReducer = (state = State, action) => {
           games: action.payload.p,
           prev: action.payload.pPrev,
           next: action.payload.pNext,
+          isLoading: false,
         },
       };
     case 'FETCH_SEARCH':
@@ -105,6 +113,34 @@ const gamesReducer = (state = State, action) => {
           next: action.payload.pNext,
         },
       };
+    case 'LOADING_NEXT_PAGE':
+      if (action.payload.title === 'Popular Games') {
+        return {
+          ...state,
+          popularGames: {
+            ...state.popularGames,
+            isLoading: true,
+          },
+        };
+      }
+      if (action.payload.title === 'Upcoming Games') {
+        return {
+          ...state,
+          upcomingGames: {
+            ...state.upcomingGames,
+            isLoading: true,
+          },
+        };
+      }
+      if (action.payload.title === 'New Games') {
+        return {
+          ...state,
+          newGames: {
+            ...state.newGames,
+            isLoading: true,
+          },
+        };
+      }
     default:
       return { ...state };
   }

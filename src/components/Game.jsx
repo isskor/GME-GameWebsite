@@ -25,17 +25,17 @@ const Game = ({ name, released, id, image }) => {
   return (
     <StyledGame layoutId={id} onClick={loadDetailHandler}>
       <Link to={`/${curPath}/${id}`}>
-        <div className='card-container'>
+        <motion.div className='card-container'>
           <motion.img loading='lazy' src={resizeImg(image, 420)} alt={name} />
           <h3>{name}</h3>
-        </div>
+        </motion.div>
       </Link>
     </StyledGame>
   );
 };
 
 const StyledGame = styled(motion.div)`
-  min-height: 40vh;
+  min-height: 35vh;
   box-shadow: 10px 10px 60px rgba(170, 170, 170, 0.1),
     -20px -20px 60px rgba(0, 0, 0, 0.4);
   text-align: center;
@@ -43,12 +43,12 @@ const StyledGame = styled(motion.div)`
   overflow: hidden;
   .card-container {
     display: grid;
-
+    /* height: 40vh; */
     cursor: pointer;
     img {
       grid-area: 1/1;
       width: 100%;
-      height: 40vh;
+      height: 35vh;
       object-fit: cover;
     }
     h3 {

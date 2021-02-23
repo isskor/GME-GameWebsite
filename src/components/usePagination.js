@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { pageNumber } from '../actions/searchAction';
 const usePagination = (list) => {
@@ -28,11 +28,7 @@ const usePagination = (list) => {
   useEffect(() => {
     setPages(doPaging(currentPage, lastPage));
     dispatch(pageNumber(currentPage));
-    console.log(currentPage);
-    console.log(pages);
-    console.log(lastPage);
-    console.log('currentpage changed');
-  }, [currentPage]);
+  }, [currentPage, list, lastPage, dispatch]);
 
   return { pages, currentPage, setCurrentPage, lastPage };
 };

@@ -9,9 +9,8 @@ import { AnimatePresence, motion, AnimateSharedLayout } from 'framer-motion';
 // Components
 import Game from '../components/Game';
 import GameDetail from '../components/GameDetail';
-import Navbar from '../components/Navbar';
+
 import Nav from '../components/Nav';
-import GenreButtons from '../components/GenreButtons';
 import Sidebar from '../components/Sidebar';
 const SearchPage = () => {
   // get Current Location
@@ -31,7 +30,6 @@ const SearchPage = () => {
   const { searched, genres } = useSelector((state) => state.games);
   const [activeGenre, setActiveGenre] = useState(genreList);
 
-  const gamePage = (gameList, displayNumber) => {};
   const toggleGenreHandler = (index) => {
     let newGenres = activeGenre.map((g, i) => {
       if (i === index) {
@@ -53,6 +51,7 @@ const SearchPage = () => {
               genre={genre}
               onClick={() => toggleGenreHandler(i)}
               className={genre.active ? 'active' : ''}
+              key={genre}
             >
               {genre.name}
             </button>
@@ -100,10 +99,6 @@ const StyledGamesList = styled(motion.div)`
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-column-gap: 2rem;
   grid-row-gap: 5rem;
-`;
-
-const StyledList = styled.div`
-  display: flex;
 `;
 
 const StyledGenres = styled.div`

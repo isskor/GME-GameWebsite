@@ -2,17 +2,20 @@ import GlobalStyles from './components/GlobalStyles';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { loadGames } from './actions/gamesAction';
+import { loadGames, loadFilters } from './actions/gamesAction';
 // Components and pages
 // import Nav from './components/Nav';
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
 import SearchPage from './pages/SearchPage';
 import Browse from './pages/Browse';
+import Footer from './components/Footer';
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(loadGames('hey'));
+    console.log('useEffect from App.js');
+    dispatch(loadGames());
+    dispatch(loadFilters());
   }, [dispatch]);
   return (
     <div className='App'>
@@ -32,6 +35,7 @@ function App() {
           <Browse />
         </Route>
       </Switch>
+      <Footer />
     </div>
   );
 }

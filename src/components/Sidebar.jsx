@@ -61,26 +61,9 @@
 //       history.push('/browse?&genres=' + newPath + '&added=');
 //   };
 
-//   // const genrePathHandler = () => {
-//   //   let newPath = genresState
-//   //     .filter((item) => item.active)
-//   //     .map((filteredItem) => filteredItem.id);
-//   //   history.push('/browse?' + genrePath);
-//   // };
 //   useEffect(() => {
 //     setGenresState(genreList);
 //   }, [genres]);
-
-//   // useEffect(() => {
-//   //   let path;
-//   //   if (genrePath.length > 0) {
-//   //     path = '&genres=' + genrePath;
-//   //   } else {
-//   //     path = '';
-//   //   }
-//   //   console.log(searchInput);
-//   //   dispatch(fetchSearch(searchInput, path));
-//   // }, [genrePath]);
 
 //   const clearActiveHandler = () => {
 //     setGenresState(genreList);
@@ -203,3 +186,18 @@
 // `;
 
 // export default Sidebar;
+{
+  /* <h3 isOpen={isOpen} onClick={() => setIsOpen(isOpen === 1 ? false : 1)}>
+genres
+</h3>
+{isOpen === 1 &&
+genresState.map((genre) => (
+  <motion.li
+    onClick={() => activeGenreHandler(genre)}
+    className={genre.active ? 'active' : ''}
+    key={genre.id}
+  >
+    <span>{genre.name}</span>
+  </motion.li>
+))} */
+}
