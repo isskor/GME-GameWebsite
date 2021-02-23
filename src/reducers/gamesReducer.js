@@ -141,6 +141,7 @@ const gamesReducer = (state = State, action) => {
           },
         };
       }
+      break;
     default:
       return { ...state };
   }

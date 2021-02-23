@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 // Styling and Animation
 import styled from 'styled-components';
 import { AnimatePresence, motion, AnimateSharedLayout } from 'framer-motion';
@@ -8,31 +8,30 @@ import bg from '../img/warriro_diana_4k_hd_league_of_legends.jpg';
 // Components
 import Game from '../components/Game';
 import GameDetail from '../components/GameDetail';
-import useSearchFilter from '../components/useSearchFilter';
 import Sidebar2 from '../components/Sidebar2';
 // fetch
-import { fetchSearch } from '../actions/gamesAction';
-import {
-  filterSortBy,
-  filterPageSize,
-  resetPageNumber,
-} from '../actions/searchAction';
+// import useSearchFilter from '../components/useSearchFilter';
+// import { fetchSearch } from '../actions/gamesAction';
+// import {
+//   filterSortBy,
+//   filterPageSize,
+//   resetPageNumber,
+// } from '../actions/searchAction';
+// import FilterMobileButton from '../components/FilterMobileButton';
 import Pagination from '../components/Pagination';
 import SearchForm from '../components/SearchForm';
-import FilterMobileButton from '../components/FilterMobileButton';
 const Browse = () => {
-  const dispatch = useDispatch();
-  const [textInput, setTextInput] = useState('');
+  // const dispatch = useDispatch();
+  // const [textInput, setTextInput] = useState('');
   // get Current Location
   const location = useLocation();
-  const params = useParams();
+  // const params = useParams();
   const pathId = location.pathname.split('/')[2];
   // genres
 
   //fetch data
   const { searched } = useSelector((state) => state.games);
   // media
-  const [windowWidth, setWindowWidth] = useState(null);
 
   const [showSidebar, setShowSidebar] = useState(false);
   // window.addEventListener('resize', () => {
@@ -49,7 +48,7 @@ const Browse = () => {
     window.addEventListener('resize', handleWidthSize);
     // remove eventlistener on unmount
     return () => window.removeEventListener('resize', handleWidthSize);
-  });
+  }, [setShowSidebar]);
   // if (window.innerWidth > 992) setShowSidebar(true);
 
   // console.log('browse rerender');
@@ -233,9 +232,5 @@ const StyledGamesList = styled(motion.div)`
     grid-area: 2/ 3/ 3/ 12;
   }
 `;
-const StyledContents = styled(motion.div)`
-  .filtersActive {
-    margin-left: 30%;
-  }
-`;
+
 export default Browse;

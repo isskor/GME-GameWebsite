@@ -10,7 +10,6 @@ import { useLocation, useParams } from 'react-router-dom';
 //   faAngleDown,
 // } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
-import { AnimatePresence, motion, AnimateSharedLayout } from 'framer-motion';
 import useSearchFilter from '../components/useSearchFilter';
 // fetch
 import { fetchSearch } from '../actions/gamesAction';
@@ -22,7 +21,6 @@ import {
 // import Dropdown from './Dropdown';
 import SearchInput from './SearchInput';
 import SelectInput from './SelectInput';
-import FilterMobileButton from './FilterMobileButton';
 
 const SearchForm = () => {
   const dispatch = useDispatch();
@@ -30,7 +28,7 @@ const SearchForm = () => {
   const { sortByList, pageList } = useSelector((state) => state.f);
   const { searchTextInput } = useSelector((state) => state.filters);
   // internal states
-  const [textInput, setTextInput] = useState('');
+  // const [textInput, setTextInput] = useState('');
   const [sortBy, setSortBy] = useState({});
   // console.log(sortByList[0].name);
   const [pages, setPages] = useState({});
@@ -44,7 +42,7 @@ const SearchForm = () => {
     if (params.id) return;
     dispatch(fetchSearch(searchTextInput, location.search));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.search]);
+  }, [dispatch, location.search]);
 
   // useEffect(() => {
   //   setSortBy(sortByList[0]);
@@ -67,7 +65,7 @@ const SearchForm = () => {
   useEffect(() => {
     dispatch(filterSortBy(sortBy.value));
     dispatch(filterPageSize(pages.value));
-  }, [pages, sortBy]);
+  }, [dispatch, pages, sortBy]);
 
   return (
     <StyledSearchForm className='searchForm' onSubmit={submitSearch}>

@@ -1,10 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadGames, nextPage } from '../actions/gamesAction';
+import { loadGames } from '../actions/gamesAction';
 import { useLocation } from 'react-router-dom';
 // font awesome icons
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 // Styling and Animation
 import styled from 'styled-components';
 import { AnimatePresence, motion, AnimateSharedLayout } from 'framer-motion';

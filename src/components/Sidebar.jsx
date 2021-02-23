@@ -186,8 +186,8 @@
 // `;
 
 // export default Sidebar;
-{
-  /* <h3 isOpen={isOpen} onClick={() => setIsOpen(isOpen === 1 ? false : 1)}>
+
+/* <h3 isOpen={isOpen} onClick={() => setIsOpen(isOpen === 1 ? false : 1)}>
 genres
 </h3>
 {isOpen === 1 &&
@@ -200,4 +200,3 @@ genresState.map((genre) => (
     <span>{genre.name}</span>
   </motion.li>
 ))} */
-}

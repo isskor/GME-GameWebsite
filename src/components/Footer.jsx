@@ -8,7 +8,7 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 import footerBg from '../img/league_of_legends_nami_4k_hd_league_of_legends.jpg';
 import footerPng from '../img/94444-league-graphic-legends-of-wallpaper-artifact-dota.png';
-import footerPng2 from '../img/3-2-league-of-legends-free-png-image.png';
+
 const Footer = () => {
   const socialIcons = [
     faFacebookSquare,

@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useState } from 'react';
+// import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import SelectInput from './SelectInput';
+// import SelectInput from './SelectInput';
 import Sidebar from './Sidebar2';
 import { motion, AnimateSharedLayout, AnimatePresence } from 'framer-motion';
 

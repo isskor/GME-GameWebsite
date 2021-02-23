@@ -1,17 +1,16 @@
 import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { nextPage } from '../actions/gamesAction';
 import styled from 'styled-components';
-import { AnimatePresence, motion, AnimateSharedLayout } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import Game from './Game';
-import usePageAnim from './usePageAnim';
 const GameList = ({ list }) => {
   const dispatch = useDispatch();
   const [[page, direction], setPage] = useState([0, 0]);
   //   const { isLoading } = useSelector((state) => state.games);
-  //   const [page, direction, setPage] = usePageAnim();
+
   console.log(list.isLoading);
   const paginate = (newDirection) => {
     dispatch(nextPage(list, newDirection));

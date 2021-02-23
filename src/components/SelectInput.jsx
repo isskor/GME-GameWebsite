@@ -14,7 +14,7 @@ const SelectInput = ({
 
   useEffect(() => {
     setActiveOption(options[0]);
-  }, []);
+  }, [setActiveOption, options]);
   return (
     <StyledSelect className='form-group '>
       <label>{label}</label>

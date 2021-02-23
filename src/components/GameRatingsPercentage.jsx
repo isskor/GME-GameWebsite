@@ -9,7 +9,7 @@ const GameRatingsPercentage = ({ ratings }) => {
     if (r.title === 'exceptional') return { ...r, color: ratingColors[0] };
     if (r.title === 'recommended') return { ...r, color: ratingColors[1] };
     if (r.title === 'meh') return { ...r, color: ratingColors[2] };
-    if (r.title === 'skip') return { ...r, color: ratingColors[3] };
+    return { ...r, color: ratingColors[3] };
   });
 
   return (
