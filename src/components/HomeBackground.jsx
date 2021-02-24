@@ -9,7 +9,7 @@ const HomeBackground = ({ backgroundGames }) => {
   const [mainGame, setMainGame] = useState({});
   useEffect(() => {
     console.log(backgroundGames);
-    setMainGame(backgroundGames[2]);
+    setMainGame(backgroundGames[1]);
   }, [backgroundGames]);
   const dispatch = useDispatch();
   const loadDetailHandler = () => {
@@ -47,7 +47,7 @@ const HomeBackground = ({ backgroundGames }) => {
       )}
       <StyledShowcaseGames1 className='games'>
         {backgroundGames.length > 0 &&
-          backgroundGames.slice(2, 7).map((game, i) => (
+          backgroundGames.slice(1, 6).map((game, i) => (
             <div
               className={`gameContainer ${i > 2 ? 'largeContainer' : ''}`}
               onClick={() => setMainGame(game)}
@@ -99,6 +99,7 @@ const StyledBGConatiner = styled.div`
       .mainGame-title {
         font-size: 3rem;
         padding: 1rem;
+        user-select: none;
         -webkit-text-stroke-width: 1px;
         -webkit-text-stroke-color: rgba(182, 179, 179, 0.5);
         /* width: 60%; */
@@ -160,6 +161,7 @@ const StyledShowcaseGames1 = styled.div`
     color: white;
     align-self: flex-end;
     padding: 1rem;
+    user-select: none;
   }
   @media (min-width: 768px) {
     grid-template-columns: repeat(5, minmax(100px, 1fr));

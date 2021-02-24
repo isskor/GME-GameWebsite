@@ -208,7 +208,7 @@ const StyledContainer = styled.div`
 const StyledPageTitle = styled.h1`
   width: 80%;
   margin: 0 auto;
-
+  user-select: none;
   padding-top: 6rem;
 
   font-size: 3rem;

@@ -87,6 +87,7 @@ const StyledFooterContainer = styled.div`
   .banner-content {
     grid-area: 1/2/2/3;
     align-self: center;
+    user-select: none;
     @media (min-width: 992px) {
       grid-area: 2/2/2/3;
       width: 60%;

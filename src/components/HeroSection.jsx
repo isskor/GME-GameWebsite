@@ -55,10 +55,24 @@ const StyledHeroSection = styled.section`
     h3 {
       color: white;
       text-align: center;
+      user-select: none;
+    }
+    h1 {
+      @media (min-width: 768px) {
+        font-size: 4rem;
+      }
+      @media (min-width: 1200px) {
+        font-size: 5rem;
+      }
     }
     h3 {
       font-size: 2rem;
+      color: #a7a7a7;
+      @media (min-width: 768px) {
+        font-size: 2.8rem;
+      }
     }
+
     a {
       display: inline-block;
       margin-top: 2rem;
