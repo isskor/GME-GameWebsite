@@ -85,7 +85,8 @@ const StyledSearchForm = styled.form`
   color: white;
   align-items: center;
   box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.2);
-  background: rgba(39, 19, 75, 0.9);
+  background: rgba(7, 3, 43, 0.9);
+  /* background: #06021b; */
   /* rgba(39, 19, 75, 0.2) */
   border-radius: 4px;
   justify-content: space-between;

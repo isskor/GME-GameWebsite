@@ -145,7 +145,7 @@ const StyledContainer = styled.div`
     top: 60px;
     left: 0;
     height: 100%;
-    background: #06021b;
+    background: rgba(7, 3, 43, 0.9);
     @media (min-width: 992px) {
       grid-area: 1/1/3/3;
       position: static;
