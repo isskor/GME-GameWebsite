@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+// styling
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -6,6 +8,7 @@ import {
   faInstagramSquare,
   faTwitterSquare,
 } from '@fortawesome/free-brands-svg-icons';
+// images
 import footerBg from '../img/league_of_legends_nami_4k_hd_league_of_legends.jpg';
 import footerPng from '../img/94444-league-graphic-legends-of-wallpaper-artifact-dota.png';
 
@@ -16,10 +19,13 @@ const Footer = () => {
     faInstagramSquare,
     faTwitterSquare,
   ];
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0 });
+  };
   return (
     <StyledFooterContainer>
       <StyledBanner className='banner'></StyledBanner>
-      {/* <img src={bg} alt='' /> */}
+
       <div className='footer-image'>
         <img src={footerPng} alt='' />
       </div>
@@ -39,8 +45,12 @@ const Footer = () => {
           </div>
           <div className='links'>
             <ul>
-              <li>Home</li>
-              <li>Browse Games</li>
+              <Link to='/' onClick={scrollToTop}>
+                Home
+              </Link>
+              <Link to='/browse' onClick={scrollToTop}>
+                Browse Games
+              </Link>
             </ul>
           </div>
           <div className='subscribe'>
@@ -87,6 +97,7 @@ const StyledFooterContainer = styled.div`
   .banner-content {
     grid-area: 1/2/2/3;
     align-self: center;
+    user-select: none;
     @media (min-width: 992px) {
       grid-area: 2/2/2/3;
       width: 60%;
@@ -114,15 +125,17 @@ const StyledFooterContainer = styled.div`
       .colored-text {
         color: #35bffe;
         position: relative;
-        /* &::after {
-          content: '';
-          width: 100%;
-          position: absolute;
-          height: 5px;
-          left: 0;
-          top: -5px;
-          background: white;
-        } */
+        &::after {
+          @media (min-width: 768px) {
+            content: '';
+            width: 100%;
+            position: absolute;
+            height: 5px;
+            left: 0;
+            top: -5px;
+            background: white;
+          }
+        }
       }
     }
   }
@@ -176,6 +189,9 @@ const StyledFooterContainer = styled.div`
           border-left: 2px solid rgba(150, 150, 150, 0.2);
           border-right: 2px solid rgba(150, 150, 150, 0.2);
           /* border-bottom: 2px solid rgba(150, 150, 150, 0.2); */
+        }
+        @media (min-width: 1200px) {
+          font-size: 1rem;
         }
       }
     }

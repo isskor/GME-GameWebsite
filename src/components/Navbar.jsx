@@ -1,40 +1,48 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useRef } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+// components
+import SearchInput from './SearchInput';
+import useOutsideClick from './useOutsideClick';
+// styling
 import styled from 'styled-components';
-import { AnimatePresence, motion, AnimateSharedLayout } from 'framer-motion';
 const Navbar = () => {
-  const [searchBar, setSearchBar] = useState('');
+  const [searchBarActive, setSearchBarActive] = useState(false);
+  const navSearchRef = useRef();
+  const history = useHistory();
   const submitSearchHandler = (e) => {
     e.preventDefault();
-    setSearchBar(searchBar);
-    console.log(searchBar);
+    history.push('/browse');
   };
-  const searchInputHandler = (e) => {
-    setSearchBar(e.target.value);
+
+  const handleSearchClick = () => {
+    setSearchBarActive(false);
   };
+  useOutsideClick(navSearchRef, handleSearchClick);
   return (
-    <AnimateSharedLayout type='crossfade'>
-      <StyledNavbar>
-        <div className='logo'>
-          <Link to='/game'>GME</Link>
-        </div>
-        <AnimatePresence>
-          {
-            <form onSubmit={submitSearchHandler} className='searchContainer'>
-              <StyledSearchBar
-                layoutId='search'
-                type='text'
-                placeholder='search'
-                onChange={searchInputHandler}
-              />
-            </form>
-          }
-        </AnimatePresence>
-        <div className='link'>
-          <Link to='/browse'>Browse Games</Link>
-        </div>
-      </StyledNavbar>
-    </AnimateSharedLayout>
+    <StyledNavbar>
+      <div className='logo'>
+        <Link to='/game' className={`${searchBarActive ? 'smaller' : ''}`}>
+          GME
+        </Link>
+      </div>
+
+      {
+        <form
+          ref={navSearchRef}
+          onSubmit={submitSearchHandler}
+          className={`searchContainer ${searchBarActive ? 'active' : ''}`}
+          onClick={() => setSearchBarActive(true)}
+        >
+          <SearchInput />
+        </form>
+      }
+
+      <div className='link'>
+        <Link to='/browse' className={`${searchBarActive ? 'smaller' : ''}`}>
+          Browse Games
+        </Link>
+      </div>
+    </StyledNavbar>
   );
 };
 
@@ -47,17 +55,17 @@ const StyledNavbar = styled.nav`
   .logo {
     align-self: center;
     flex-basis: 20%;
-    padding: 1rem 0;
+    padding: 1rem 1rem 1rem 0;
     border-right: 1px solid gray;
     font-size: 1.2rem;
   }
   .link {
-    padding: 1rem 0;
+    padding: 1rem 0 1rem 1rem;
     border-left: 1px solid gray;
     flex-basis: 20%;
     align-self: center;
     text-align: end;
-    height: 100%;
+    font-size: 1.2rem;
   }
   a {
     color: #b4b4b4;
@@ -66,22 +74,25 @@ const StyledNavbar = styled.nav`
       color: #35bffe;
     }
   }
+  form {
+    transition: all 1s ease;
+  }
   .searchContainer {
     flex-basis: 50%;
     padding: 1rem;
   }
-`;
-
-const StyledSearchBar = styled(motion.input)`
-  padding: 0.5rem 1rem;
-  width: 100%;
-  border: none;
-  outline: none;
-  border-radius: 0.75rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  background-color: #262247;
-  &::placeholder {
-    color: #b4b4b4a2;
+  .active {
+    /* position: absolute; */
+    flex-basis: 100%;
+    @media (min-width: 768px) {
+      flex-basis: 50%;
+    }
+  }
+  .smaller {
+    font-size: 0.6rem;
+    @media (min-width: 768px) {
+      font-size: 1.2rem;
+    }
   }
 `;
 

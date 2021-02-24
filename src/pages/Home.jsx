@@ -70,6 +70,7 @@ const StyledGamesContainer = styled(motion.div)`
       color: rgb(124, 124, 124);
       display: inline;
       margin-left: 10%;
+      user-select: none;
       /* @media (min-width: 992px) {
         margin-left: 0;
       } */

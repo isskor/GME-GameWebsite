@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { resizeImg } from '../util';
+// styling
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+// utils
+import { resizeImg } from '../util';
 const ImageGallery = ({ imageList, currentGame }) => {
   const [mainImg, setMainImg] = useState('');
   return (
@@ -50,6 +52,7 @@ const Gallery = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   gap: 1rem;
   img {
+    cursor: pointer;
     /* width: 100%; */
     height: 120px;
   }

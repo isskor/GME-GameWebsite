@@ -13,18 +13,9 @@ const Pagination = ({ list }) => {
     },
     [setCurrentPage]
   );
-
-  // reset page to 1 on new search
   useEffect(() => {
     if (cp === '&page=1') currentPageHandler(1);
-    console.log('useEffect pagination page');
   }, [cp, currentPageHandler]);
-
-  // const spring = {
-  //   type: 'spring',
-  //   stiffness: 100,
-  //   damping: 10,
-  // };
 
   return (
     <AnimateSharedLayout type='switch'>
@@ -47,22 +38,6 @@ const Pagination = ({ list }) => {
         </div>
         <div className='pageNumbers'>
           {pages.map((page) => {
-            // return page === currentPage ? (
-            //   <motion.div
-            //     layout
-            //     key={page}
-            //     className={`btn-container ${
-            //       page === currentPage ? 'current' : ''
-            //     }`}
-            //   >
-            //     <button onClick={() => currentPageHandler(page)}>{page}</button>
-            //   </motion.div>
-            // ) : (
-            //   <motion.div layout key={page} className={`btn-container`}>
-            //     <button onClick={() => currentPageHandler(page)}>{page}</button>
-            //   </motion.div>
-            // );
-
             return (
               <motion.div
                 layout
@@ -159,6 +134,7 @@ const StyledPageButtons = styled.div`
     margin-top: 1rem;
     flex-basis: 100%;
     display: flex;
+    flex-wrap: wrap;
     align-self: center;
     justify-content: center;
   }

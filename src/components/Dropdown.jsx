@@ -1,4 +1,7 @@
-import { useEffect, useRef, useCallback } from 'react';
+import { useRef } from 'react';
+// components
+import useOutsideClick from './useOutsideClick';
+// styling
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 const Dropdown = ({
@@ -8,36 +11,22 @@ const Dropdown = ({
   index,
   setOpenList,
 }) => {
-  const node = useRef();
+  // components state and initial hooks
+  const optionRef = useRef();
 
-  const handleClickOutside = useCallback(
-    (e) => {
-      if (node && node.current && node.current.contains(e.target)) {
-        // inside click
-        return;
-      }
-      setOpenList(false);
-      console.log('outside click');
-    },
-    [setOpenList]
-  );
+  // handlers
+  const handleOutsideClick = () => {
+    setOpenList(false);
+  };
+
+  useOutsideClick(optionRef, handleOutsideClick);
   const handleInsideClick = (value) => {
     setActiveOption(value);
     setOpenList(false);
   };
-  useEffect(() => {
-    if (openList === index) {
-      document.addEventListener('mousedown', handleClickOutside);
-    } else {
-      document.removeEventListener('mousedown', handleClickOutside);
-    }
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [openList, index, handleClickOutside]);
 
   return (
-    <div ref={node}>
+    <div ref={optionRef}>
       {openList === index && (
         <StyledDropdown>
           <ul>

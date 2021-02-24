@@ -4,7 +4,7 @@ import { searchInput } from '../actions/searchAction';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle, faSearch } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
-const SearchInput = () => {
+const SearchInput = ({ label }) => {
   const dispatch = useDispatch();
   const { searchTextInput } = useSelector((state) => state.filters);
   //   const [textInput, setTextInput] = useState('');
@@ -19,20 +19,23 @@ const SearchInput = () => {
 
   return (
     <StyledSearchInput className='form-group'>
-      <label>{searchTextInput ? 'Press Enter To Search' : 'Search'}</label>
+      {label && (
+        <label>{searchTextInput ? 'Press Enter To Search' : 'Search'}</label>
+      )}
       <div className=' searchInput'>
         <input
           type='text'
-          id='search'
           placeholder='search games'
           onChange={inputHandler}
           value={searchTextInput}
         />
-        <figure onClick={() => clearTextHandler()}>
-          <FontAwesomeIcon
-            icon={searchTextInput ? faTimesCircle : faSearch}
-          ></FontAwesomeIcon>
-        </figure>
+        {label && (
+          <figure onClick={() => clearTextHandler()}>
+            <FontAwesomeIcon
+              icon={searchTextInput ? faTimesCircle : faSearch}
+            ></FontAwesomeIcon>
+          </figure>
+        )}
       </div>
     </StyledSearchInput>
   );

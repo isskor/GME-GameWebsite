@@ -1,5 +1,7 @@
 import React from 'react';
+// components
 import PercentageCircle from './PercentageCircle';
+// styling
 import styled from 'styled-components';
 const GameRatingsPercentage = ({ ratings }) => {
   const ratingColors = ['#35bffa', '#35fea0', '#faab35', '#fa3570'];

@@ -25,7 +25,6 @@ const Sidebar = ({ setShowSidebar }) => {
     setGenresState(genres);
     setPlatformsState(platforms);
     setStoresState(stores);
-    console.log('genrelist change');
   }, [genres, platforms, stores]);
 
   //active filter handler
@@ -38,7 +37,7 @@ const Sidebar = ({ setShowSidebar }) => {
           Close filters
         </button>
         <div className='genre-title'>
-          <h3 layouId={'sidebar'}>Filters</h3>
+          <h3>Filters</h3>
           <ClearFiltersButton
             setGenresState={setGenresState}
             setPlatformsState={setPlatformsState}
@@ -87,6 +86,7 @@ const StyledSidebar = styled(motion.ul)`
   /* position: absolute; */
   height: 100%;
   transition: all 1s ease;
+
   .showFilter {
     background: transparent;
     border: none;
@@ -103,18 +103,26 @@ const StyledSidebar = styled(motion.ul)`
   .genre-title {
     display: flex;
     flex-wrap: wrap;
-    /* flex-direction: column; */
     align-items: center;
     justify-content: space-between;
-    padding: 1rem;
-    margin: 1rem auto;
+    padding: 0 1rem;
+    margin: 0 auto;
+    @media (min-width: 992px) {
+      flex-direction: column;
+      margin-bottom: 1rem;
+      /* padding: 2rem; */
+    }
     h3 {
       color: white;
-      /* font-size: 1.5rem; */
       font-size: 1rem;
+      user-select: none;
       /* align-self: flex-start; */
       align-self: center;
       /* padding: 0 2rem 2rem; */
+      @media (min-width: 992px) {
+        align-self: flex-start;
+        font-size: 1.2rem;
+      }
     }
   }
 `;

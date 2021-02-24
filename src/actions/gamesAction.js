@@ -9,7 +9,6 @@ import {
   getGenresURL,
   getPlatformsURL,
   getStoresURL,
-  getDevURL,
 } from '../api';
 
 // Actions creator
@@ -41,8 +40,7 @@ export const loadFilters = () => async (dispatch) => {
   const genres = await axios.get(getGenresURL());
   const platforms = await axios.get(getPlatformsURL());
   const stores = await axios.get(getStoresURL());
-  const dev = await axios.get(getDevURL());
-  console.log(dev);
+
   dispatch({
     type: 'FETCH_FILTERS',
     payload: {
@@ -85,7 +83,6 @@ export const fetchSearch = (game_name, ...moreFilters) => async (dispatch) => {
     `${searchGameURL(game_name)}${moreFilters}`
   );
   // console.log(dispatch);
-  console.log(searchGamesData);
   // console.log(`${searchGameURL(game_name)}${moreFilters}`);
   dispatch({
     type: 'FETCH_SEARCH',

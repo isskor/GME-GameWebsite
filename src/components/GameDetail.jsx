@@ -1,15 +1,16 @@
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+// components
+import ImageGallery from './ImageGallery';
+import GameRatingsPercentage from './GameRatingsPercentage';
+import GameDetailHeader from './GameDetailHeader';
+import GameDetailInfo from './GameDetailInfo';
 // Styling and Animation
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 // utils
-import ImageGallery from './ImageGallery';
-import GameRatingsPercentage from './GameRatingsPercentage';
-import GameDetailHeader from './GameDetailHeader';
-import GameDetailInfo from './GameDetailInfo';
 
 const GameDetail = () => {
   const history = useHistory();
@@ -17,7 +18,6 @@ const GameDetail = () => {
 
   const exitGameHandler = (e, btnClick) => {
     const el = e.target;
-    console.log(el);
 
     if (el.classList.contains('card-shadow') || btnClick) {
       document.body.style.overflow = 'auto';
@@ -185,6 +185,7 @@ const Description = styled(motion.div)`
   }
   .description-header {
     font-size: 2.5rem;
+    user-select: none;
     color: #eeeeee;
     margin-top: 0;
     padding-top: 0;

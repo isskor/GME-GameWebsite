@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 // Styling and Animation
@@ -9,34 +9,24 @@ import bg from '../img/warriro_diana_4k_hd_league_of_legends.jpg';
 import Game from '../components/Game';
 import GameDetail from '../components/GameDetail';
 import Sidebar2 from '../components/Sidebar2';
-// fetch
-// import useSearchFilter from '../components/useSearchFilter';
-// import { fetchSearch } from '../actions/gamesAction';
-// import {
-//   filterSortBy,
-//   filterPageSize,
-//   resetPageNumber,
-// } from '../actions/searchAction';
-// import FilterMobileButton from '../components/FilterMobileButton';
 import Pagination from '../components/Pagination';
 import SearchForm from '../components/SearchForm';
+
 const Browse = () => {
-  // const dispatch = useDispatch();
-  // const [textInput, setTextInput] = useState('');
+  // ref for sidebar
+  const sidebarRef = useRef();
+
   // get Current Location
+  // get gameId from path
   const location = useLocation();
-  // const params = useParams();
   const pathId = location.pathname.split('/')[2];
   // genres
 
   //fetch data
   const { searched } = useSelector((state) => state.games);
-  // media
 
   const [showSidebar, setShowSidebar] = useState(false);
-  // window.addEventListener('resize', () => {
-  //   if (window.innerWidth > 992) setShowSidebar(true);
-  // });
+
   useEffect(() => {
     // check width on initial render
     if (window.innerWidth > 992) setShowSidebar(true);
@@ -49,37 +39,10 @@ const Browse = () => {
     // remove eventlistener on unmount
     return () => window.removeEventListener('resize', handleWidthSize);
   }, [setShowSidebar]);
-  // if (window.innerWidth > 992) setShowSidebar(true);
 
-  // console.log('browse rerender');
-  // useSearchFilter();
-  // useEffect(() => {
-  //   if (params.id) return;
-  //   dispatch(fetchSearch(textInput, location.search));
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [location.search]);
-
-  // const inputHandler = (e) => {
-  //   setTextInput(e.target.value);
-  // };
-  // const submitSearch = (e) => {
-  //   e.preventDefault();
-  //   dispatch(fetchSearch(textInput, location.search));
-  //   dispatch(resetPageNumber());
-  // };
-
-  // // sortby
-  // const sortByHandler = (sort) => {
-  //   dispatch(filterSortBy(sort));
-  // };
-  // // filter page size
-  // const pageSizeHandler = (pages) => {
-  //   dispatch(filterPageSize(pages));
-  // };
   return (
     <div>
       <StyledBanner className='banner'>
-        {/* <img src={bg} alt='' /> */}
         <div className='line'></div>
       </StyledBanner>
       <StyledPageTitle>Games</StyledPageTitle>
@@ -88,9 +51,14 @@ const Browse = () => {
         className={`content-container ${showSidebar ? 'filtersActive' : ''}`}
       >
         {showSidebar && (
-          <div className='sidebar'>
-            <Sidebar2 setShowSidebar={setShowSidebar} />
-          </div>
+          <>
+            {window.innerWidth < 998 && (
+              <CardShadow onClick={() => setShowSidebar(false)}></CardShadow>
+            )}
+            <div className='sidebar' ref={sidebarRef}>
+              <Sidebar2 setShowSidebar={setShowSidebar} />
+            </div>
+          </>
         )}
 
         <SearchForm />
@@ -99,10 +67,6 @@ const Browse = () => {
         </button>
         {searched.games.length > 0 && (
           <>
-            {/* <div className='header'>
-              <img src={searched[0].background_image} alt={searched[0].name} />
-              <h2>Games</h2>
-            </div> */}
             <AnimateSharedLayout type='crossfade'>
               <AnimatePresence>
                 {pathId && <GameDetail pathId={pathId} />}
@@ -118,7 +82,6 @@ const Browse = () => {
                   />
                 ))}
               </StyledGamesList>
-
               <Pagination list={searched} />
             </AnimateSharedLayout>
           </>
@@ -160,10 +123,22 @@ const StyledContainer = styled.div`
     grid-template-columns: repeat(11, 1fr);
     grid-template-rows: 80px 1fr 80px;
     grid-gap: 1rem;
+    width: 90%;
+  }
+  &.filtersActive {
+    margin-left: 30%;
+    width: 70%;
+    @media (min-width: 992px) {
+      margin-left: auto;
+      width: 95%;
+    }
+    @media (min-width: 1200px) {
+      width: 90%;
+    }
   }
   .sidebar {
     /* display: none; */
-    z-index: 10;
+    z-index: 50;
     position: absolute;
     width: 50%;
     max-width: 220px;
@@ -191,22 +166,13 @@ const StyledContainer = styled.div`
       display: none;
     }
   }
-  &.filtersActive {
-    margin-left: 30%;
-    width: 70%;
-    @media (min-width: 992px) {
-      margin-left: auto;
-      width: 90%;
-    }
-  }
 `;
 
 const StyledPageTitle = styled.h1`
   width: 80%;
   margin: 0 auto;
-
+  user-select: none;
   padding-top: 6rem;
-
   font-size: 3rem;
   color: #c2c2c2;
   @media (min-width: 576px) {
@@ -221,6 +187,7 @@ const StyledGamesList = styled(motion.div)`
   margin-top: 1rem;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(auto-fit, minmax(35vh, 35vh));
   grid-column-gap: 1rem;
   grid-row-gap: 1rem;
   @media (min-width: 576px) {
@@ -232,5 +199,16 @@ const StyledGamesList = styled(motion.div)`
     grid-area: 2/ 3/ 3/ 12;
   }
 `;
-
+const CardShadow = styled(motion.div)`
+  width: 100%;
+  min-height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  @media (min-width: 992px) {
+    display: none;
+  }
+`;
 export default Browse;
