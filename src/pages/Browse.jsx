@@ -160,6 +160,18 @@ const StyledContainer = styled.div`
     grid-template-columns: repeat(11, 1fr);
     grid-template-rows: 80px 1fr 80px;
     grid-gap: 1rem;
+    width: 90%;
+  }
+  &.filtersActive {
+    margin-left: 30%;
+    width: 70%;
+    @media (min-width: 992px) {
+      margin-left: auto;
+      width: 95%;
+    }
+    @media (min-width: 1200px) {
+      width: 90%;
+    }
   }
   .sidebar {
     /* display: none; */
@@ -191,14 +203,6 @@ const StyledContainer = styled.div`
       display: none;
     }
   }
-  &.filtersActive {
-    margin-left: 30%;
-    width: 70%;
-    @media (min-width: 992px) {
-      margin-left: auto;
-      width: 90%;
-    }
-  }
 `;
 
 const StyledPageTitle = styled.h1`
@@ -221,6 +225,7 @@ const StyledGamesList = styled(motion.div)`
   margin-top: 1rem;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(auto-fit, minmax(35vh, 35vh));
   grid-column-gap: 1rem;
   grid-row-gap: 1rem;
   @media (min-width: 576px) {
