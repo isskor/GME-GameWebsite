@@ -33,7 +33,7 @@ const Sidebar = ({ setShowSidebar }) => {
     <motion.div>
       <StyledSidebar>
         <button className='showFilter' onClick={() => setShowSidebar(false)}>
-          <FontAwesomeIcon icon={faTimesCircle} size='3x' />
+          <FontAwesomeIcon icon={faTimesCircle} size='1x' />
           Close filters
         </button>
         <div className='genre-title'>
@@ -77,7 +77,7 @@ const Sidebar = ({ setShowSidebar }) => {
 };
 
 const StyledSidebar = styled(motion.ul)`
-  background: #06021b;
+  background: rgba(7, 3, 43, 0.9);
   /* background: transparent; */
   color: white;
   list-style: none;
@@ -91,11 +91,16 @@ const StyledSidebar = styled(motion.ul)`
     background: transparent;
     border: none;
     outline: none;
-    color: rgba(252, 28, 103, 0.7);
+    color: #35bffe;
     margin: 1rem;
     display: flex;
     align-items: center;
+    opacity: 0.8;
     cursor: pointer;
+    svg {
+      font-size: 2rem;
+      margin-right: 0.5rem;
+    }
     @media (min-width: 992px) {
       display: none;
     }
