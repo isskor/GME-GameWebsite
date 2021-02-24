@@ -1,4 +1,5 @@
 import React from 'react';
+// styling
 import styled from 'styled-components';
 import starEmpty from '../img/star-empty.png';
 import starFull from '../img/star-full.png';

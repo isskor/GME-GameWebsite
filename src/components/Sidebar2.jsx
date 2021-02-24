@@ -25,7 +25,6 @@ const Sidebar = ({ setShowSidebar }) => {
     setGenresState(genres);
     setPlatformsState(platforms);
     setStoresState(stores);
-    console.log('genrelist change');
   }, [genres, platforms, stores]);
 
   //active filter handler
@@ -38,7 +37,7 @@ const Sidebar = ({ setShowSidebar }) => {
           Close filters
         </button>
         <div className='genre-title'>
-          <h3 layouId={'sidebar'}>Filters</h3>
+          <h3>Filters</h3>
           <ClearFiltersButton
             setGenresState={setGenresState}
             setPlatformsState={setPlatformsState}

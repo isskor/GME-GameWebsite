@@ -1,9 +1,10 @@
 import { useState, useRef } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import styled from 'styled-components';
-import { AnimatePresence, motion, AnimateSharedLayout } from 'framer-motion';
+// components
 import SearchInput from './SearchInput';
 import useOutsideClick from './useOutsideClick';
+// styling
+import styled from 'styled-components';
 const Navbar = () => {
   const [searchBarActive, setSearchBarActive] = useState(false);
   const navSearchRef = useRef();
@@ -14,37 +15,34 @@ const Navbar = () => {
   };
 
   const handleSearchClick = () => {
-    console.log(searchBarActive);
     setSearchBarActive(false);
   };
   useOutsideClick(navSearchRef, handleSearchClick);
   return (
-    <AnimateSharedLayout type='crossfade'>
-      <StyledNavbar>
-        <div className='logo'>
-          <Link to='/game' className={`${searchBarActive ? 'smaller' : ''}`}>
-            GME
-          </Link>
-        </div>
-        <AnimatePresence>
-          {
-            <form
-              ref={navSearchRef}
-              onSubmit={submitSearchHandler}
-              className={`searchContainer ${searchBarActive ? 'active' : ''}`}
-              onClick={() => setSearchBarActive(true)}
-            >
-              <SearchInput />
-            </form>
-          }
-        </AnimatePresence>
-        <div className='link'>
-          <Link to='/browse' className={`${searchBarActive ? 'smaller' : ''}`}>
-            Browse Games
-          </Link>
-        </div>
-      </StyledNavbar>
-    </AnimateSharedLayout>
+    <StyledNavbar>
+      <div className='logo'>
+        <Link to='/game' className={`${searchBarActive ? 'smaller' : ''}`}>
+          GME
+        </Link>
+      </div>
+
+      {
+        <form
+          ref={navSearchRef}
+          onSubmit={submitSearchHandler}
+          className={`searchContainer ${searchBarActive ? 'active' : ''}`}
+          onClick={() => setSearchBarActive(true)}
+        >
+          <SearchInput />
+        </form>
+      }
+
+      <div className='link'>
+        <Link to='/browse' className={`${searchBarActive ? 'smaller' : ''}`}>
+          Browse Games
+        </Link>
+      </div>
+    </StyledNavbar>
   );
 };
 

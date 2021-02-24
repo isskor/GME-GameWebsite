@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { resizeImg } from '../util';
+// styling
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+// utils
+import { resizeImg } from '../util';
 const ImageGallery = ({ imageList, currentGame }) => {
   const [mainImg, setMainImg] = useState('');
   return (

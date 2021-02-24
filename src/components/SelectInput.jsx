@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
+// components
+import Dropdown from './Dropdown';
+// styling
+import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleUp, faAngleDown } from '@fortawesome/free-solid-svg-icons';
-import Dropdown from './Dropdown';
-import styled from 'styled-components';
 const SelectInput = ({
   options,
   activeOption,

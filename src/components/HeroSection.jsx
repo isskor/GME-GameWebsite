@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
+// styling
 import styled from 'styled-components';
+// images
 import png1 from '../img/assassins_creed_PNG62.png';
 const HeroSection = () => {
   return (

@@ -9,37 +9,24 @@ import bg from '../img/warriro_diana_4k_hd_league_of_legends.jpg';
 import Game from '../components/Game';
 import GameDetail from '../components/GameDetail';
 import Sidebar2 from '../components/Sidebar2';
-// fetch
-// import useSearchFilter from '../components/useSearchFilter';
-// import { fetchSearch } from '../actions/gamesAction';
-// import {
-//   filterSortBy,
-//   filterPageSize,
-//   resetPageNumber,
-// } from '../actions/searchAction';
-// import FilterMobileButton from '../components/FilterMobileButton';
 import Pagination from '../components/Pagination';
 import SearchForm from '../components/SearchForm';
-import useOutsideClick from '../components/useOutsideClick';
 
 const Browse = () => {
-  // const dispatch = useDispatch();
-  // const [textInput, setTextInput] = useState('');
+  // ref for sidebar
+  const sidebarRef = useRef();
+
   // get Current Location
+  // get gameId from path
   const location = useLocation();
-  // const params = useParams();
   const pathId = location.pathname.split('/')[2];
   // genres
 
   //fetch data
   const { searched } = useSelector((state) => state.games);
-  // media
-  const sidebarRef = useRef();
+
   const [showSidebar, setShowSidebar] = useState(false);
 
-  // window.addEventListener('resize', () => {
-  //   if (window.innerWidth > 992) setShowSidebar(true);
-  // });
   useEffect(() => {
     // check width on initial render
     if (window.innerWidth > 992) setShowSidebar(true);
@@ -52,33 +39,7 @@ const Browse = () => {
     // remove eventlistener on unmount
     return () => window.removeEventListener('resize', handleWidthSize);
   }, [setShowSidebar]);
-  // if (window.innerWidth > 992) setShowSidebar(true);
 
-  // console.log('browse rerender');
-  // useSearchFilter();
-  // useEffect(() => {
-  //   if (params.id) return;
-  //   dispatch(fetchSearch(textInput, location.search));
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [location.search]);
-
-  // const inputHandler = (e) => {
-  //   setTextInput(e.target.value);
-  // };
-  // const submitSearch = (e) => {
-  //   e.preventDefault();
-  //   dispatch(fetchSearch(textInput, location.search));
-  //   dispatch(resetPageNumber());
-  // };
-
-  // // sortby
-  // const sortByHandler = (sort) => {
-  //   dispatch(filterSortBy(sort));
-  // };
-  // // filter page size
-  // const pageSizeHandler = (pages) => {
-  //   dispatch(filterPageSize(pages));
-  // };
   return (
     <div>
       <StyledBanner className='banner'>

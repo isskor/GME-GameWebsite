@@ -9,7 +9,7 @@ const useSearchFilter = () => {
   const [queryState, setQueryState] = useState('');
 
   const queryHandler = (queries) => setQueryState(queries);
-  console.log('usesearch filter ran');
+
   useEffect(() => {
     let q = '';
     for (const [key, value] of Object.entries(states)) {

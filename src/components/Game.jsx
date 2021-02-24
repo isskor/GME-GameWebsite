@@ -15,7 +15,6 @@ const Game = ({ name, released, id, image }) => {
   const loadDetailHandler = () => {
     dispatch(loadDetail(id));
     document.body.style.overflow = 'hidden';
-    console.log(history);
   };
   window.onpopstate = () => {
     document.body.style.overflow = 'auto';

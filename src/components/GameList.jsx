@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+// actions
 import { nextPage } from '../actions/gamesAction';
+// styling
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,13 +13,11 @@ const GameList = ({ list }) => {
   const [[page, direction], setPage] = useState([0, 0]);
   //   const { isLoading } = useSelector((state) => state.games);
 
-  console.log(list.isLoading);
   const paginate = (newDirection) => {
     dispatch(nextPage(list, newDirection));
     setPage([page + newDirection, newDirection]);
     // setLoadPage(true);
   };
-  console.log(page);
   const variants = {
     enter: (direction) => {
       return {

@@ -1,7 +1,9 @@
 import { useRef } from 'react';
+// components
+import useOutsideClick from './useOutsideClick';
+// styling
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import useOutsideClick from './useOutsideClick';
 const Dropdown = ({
   options,
   setActiveOption,
@@ -9,26 +11,10 @@ const Dropdown = ({
   index,
   setOpenList,
 }) => {
+  // components state and initial hooks
   const optionRef = useRef();
 
-  // const handleClickOutside = useCallback(
-  //   (e) => {
-  //     if (node && node.current && !node.current.contains(e.target)) {
-  //       // inside click
-  //       setOpenList(false);
-  //       return;
-  //     }
-  //     console.log('outside click');
-  //   },
-  //   [setOpenList]
-  // );
-  // useEffect(() => {
-  //   document.addEventListener('mousedown', handleClickOutside);
-
-  //   return () => {
-  //     document.removeEventListener('mousedown', handleClickOutside);
-  //   };
-  // });
+  // handlers
   const handleOutsideClick = () => {
     setOpenList(false);
   };

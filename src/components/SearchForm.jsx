@@ -1,26 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
+// components
+import SearchInput from './SearchInput';
+import SelectInput from './SelectInput';
 // Styling and Animation
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import {
-//   faTimesCircle,
-//   faSearch,
-//   faAngleUp,
-//   faAngleDown,
-// } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import useSearchFilter from '../components/useSearchFilter';
-// fetch
+// actions
 import { fetchSearch } from '../actions/gamesAction';
 import {
   filterSortBy,
   filterPageSize,
   resetPageNumber,
 } from '../actions/searchAction';
-// import Dropdown from './Dropdown';
-import SearchInput from './SearchInput';
-import SelectInput from './SelectInput';
 
 const SearchForm = () => {
   const dispatch = useDispatch();
@@ -28,11 +21,11 @@ const SearchForm = () => {
   const { sortByList, pageList } = useSelector((state) => state.f);
   const { searchTextInput } = useSelector((state) => state.filters);
   // internal states
-  // const [textInput, setTextInput] = useState('');
+
   const [sortBy, setSortBy] = useState({});
-  // console.log(sortByList[0].name);
+
   const [pages, setPages] = useState({});
-  // const [openList, setOpenList] = useState(false);
+
   // get Current Location
   const location = useLocation();
   const params = useParams();
@@ -44,23 +37,11 @@ const SearchForm = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, location.search]);
 
-  // useEffect(() => {
-  //   setSortBy(sortByList[0]);
-  //   setPages(pageList[0]);
-  // }, []);
-  // handlers
   const submitSearch = (e) => {
     e.preventDefault();
     dispatch(fetchSearch(searchTextInput, location.search));
     dispatch(resetPageNumber());
   };
-
-  // const inputHandler = (e) => {
-  //   setTextInput(e.target.value);
-  // };
-  // const clearTextHandler = (e) => {
-  //   setTextInput('');
-  // };
 
   useEffect(() => {
     dispatch(filterSortBy(sortBy.value));
@@ -72,61 +53,7 @@ const SearchForm = () => {
       <div className='search'>
         <SearchInput label={true} />
       </div>
-      {/* <div className='form-group search'>
-        <label>
-          {textInput.length > 0 ? 'Press Enter To Search' : 'Search'}
-        </label>
-        <div className=' searchInput'>
-          <input
-            type='text'
-            id='search'
-            placeholder='search games'
-            onChange={inputHandler}
-            value={textInput}
-          />
-          <figure onClick={(e) => clearTextHandler()}>
-            <FontAwesomeIcon
-              icon={textInput ? faTimesCircle : faSearch}
-            ></FontAwesomeIcon>
-          </figure>
-        </div>
-      </div> */}
-      {/* <div className='form-group dropdown sortby'>
-        <label>Sort By</label>
 
-        <div
-          className='dropdown-header'
-          onClick={() => setOpenList(openList === 1 ? false : 1)}
-        >
-          <span>{sortBy.name}</span>
-          <FontAwesomeIcon icon={faAngleDown} />
-        </div>
-        <Dropdown
-          list={sortByList}
-          openList={openList}
-          index={1}
-          setItemActive={setSortBy}
-          setOpenList={setOpenList}
-        />
-      </div> */}
-      {/* <div className='form-group dropdown pages'>
-        <label>pages</label>
-
-        <div
-          className='dropdown-header'
-          onClick={() => setOpenList(openList === 2 ? false : 2)}
-        >
-          <span>{pages.name}</span>
-          <FontAwesomeIcon icon={faAngleDown} />
-        </div>
-        <Dropdown
-          list={pageList}
-          openList={openList}
-          index={2}
-          setItemActive={setPages}
-          setOpenList={setOpenList}
-        />
-      </div> */}
       <div className='sortby'>
         <SelectInput
           options={sortByList}
@@ -146,7 +73,6 @@ const SearchForm = () => {
           className={'pages'}
         />
       </div>
-      {/* <FilterMobileButton /> */}
     </StyledSearchForm>
   );
 };

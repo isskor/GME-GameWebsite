@@ -25,7 +25,6 @@ const SearchInput = ({ label }) => {
       <div className=' searchInput'>
         <input
           type='text'
-          id='search'
           placeholder='search games'
           onChange={inputHandler}
           value={searchTextInput}

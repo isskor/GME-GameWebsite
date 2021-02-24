@@ -1,8 +1,9 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
+// styling
 import styled, { css } from 'styled-components';
 import { motion } from 'framer-motion';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 const FilterList = ({
   list,
   listName,
@@ -12,37 +13,45 @@ const FilterList = ({
   setIsOpen,
   index,
 }) => {
+  // component state and initial hooks
   const dispatch = useDispatch();
+  // check if filter is active
   const activeHandler = (listItem) => {
-    let newGenres = list.map((g) => {
+    let newFilters = list.map((g) => {
       if (g === listItem) {
         g.active = !g.active;
       }
       return g;
     });
-    let newPath = newGenres
+    // find the active filters and return their ID's
+    let newPath = newFilters
       .filter((item) => item.active)
       .map((filteredItem) => filteredItem.id);
-
-    let activeGenre = newGenres
+    // dispatch array of ID's to store
+    dispatch(listDispatch(newPath));
+    // sort active and not active filters
+    let activeFilter = newFilters
       .filter((g) => g.active)
       .sort((a, b) => (a.name < b.name ? -1 : 1));
 
-    let notActiveGenre = newGenres
+    let notActiveFilter = newFilters
       .filter((g) => !g.active)
       .sort((a, b) => (a.name < b.name ? -1 : 1));
-
-    listStateSetter([...activeGenre, ...notActiveGenre]);
-    dispatch(listDispatch(newPath));
+    // set sorted FilterList to component state
+    listStateSetter([...activeFilter, ...notActiveFilter]);
   };
+  // check the number of active items
   const num = list.filter((item) => item.active).length;
+
   return (
     <StyledFilterList>
       <div
         className='list-title-container'
+        // toggle open list
         onClick={() => setIsOpen(isOpen === index ? false : index)}
       >
         <div className='list-title'>
+          {/* check if there are any active filters */}
           {num > 0 && <p>{num ? num : ''}</p>}
           <h3>{listName}</h3>
         </div>
@@ -67,7 +76,7 @@ const FilterList = ({
     </StyledFilterList>
   );
 };
-
+// border style
 const ActiveBorderStyle = css`
   border-left: 8px solid #35bffe;
   ::before {

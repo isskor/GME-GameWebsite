@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { loadDetail } from '../actions/gameDetailAction';
 import { Link } from 'react-router-dom';
+// actions
+import { loadDetail } from '../actions/gameDetailAction';
+// styling
 import styled from 'styled-components';
+// utils
 import { resizeImg } from '../util';
 
 const HomeBackground = ({ backgroundGames }) => {
   const [mainGame, setMainGame] = useState({});
   useEffect(() => {
-    console.log(backgroundGames);
     setMainGame(backgroundGames[1]);
   }, [backgroundGames]);
   const dispatch = useDispatch();

@@ -1,21 +1,24 @@
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+// actions
 import {
   clearAllFilters,
   resetPageNumber,
   clearQueryString,
 } from '../actions/searchAction.js';
+// styling
 import styled from 'styled-components';
 
 const ClearFiltersButton = () => {
+  // component state and initial hooks
   const history = useHistory();
   const dispatch = useDispatch();
   const { platforms, genres, stores } = useSelector((state) => state.f);
 
+  // Handlers
   const clearActiveHandler = () => {
-    // setGenresState(genres);
-    // setPlatformsState(platforms);
     dispatch(clearAllFilters({ genres, platforms, stores }));
+    // reset to page 1
     dispatch(resetPageNumber(1));
     dispatch(clearQueryString());
     history.push('/browse');
