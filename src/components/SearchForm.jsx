@@ -70,7 +70,7 @@ const SearchForm = () => {
   return (
     <StyledSearchForm className='searchForm' onSubmit={submitSearch}>
       <div className='search'>
-        <SearchInput />
+        <SearchInput label={true} />
       </div>
       {/* <div className='form-group search'>
         <label>

@@ -38,12 +38,14 @@ const StyledGameHeader = styled.div`
     color: #eeeeee;
     margin: 2rem 0 1rem;
     padding: 0;
+    user-select: none;
   }
   .game-publishers {
     font-size: 1.5rem;
     color: #a3a2a2;
     margin: 0;
     padding: 0;
+    user-select: none;
   }
   .game-website {
     margin-top: 1rem;
@@ -74,6 +76,7 @@ const StyledGameHeader = styled.div`
       justify-content: center;
       align-items: center;
       p {
+        user-select: none;
         width: 50px;
         height: 50px;
         text-align: center;
