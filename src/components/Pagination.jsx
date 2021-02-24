@@ -159,6 +159,7 @@ const StyledPageButtons = styled.div`
     margin-top: 1rem;
     flex-basis: 100%;
     display: flex;
+    flex-wrap: wrap;
     align-self: center;
     justify-content: center;
   }

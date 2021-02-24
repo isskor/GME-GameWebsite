@@ -9,7 +9,7 @@ const HomeBackground = ({ backgroundGames }) => {
   const [mainGame, setMainGame] = useState({});
   useEffect(() => {
     console.log(backgroundGames);
-    setMainGame(backgroundGames[2]);
+    setMainGame(backgroundGames[1]);
   }, [backgroundGames]);
   const dispatch = useDispatch();
   const loadDetailHandler = () => {
@@ -47,7 +47,7 @@ const HomeBackground = ({ backgroundGames }) => {
       )}
       <StyledShowcaseGames1 className='games'>
         {backgroundGames.length > 0 &&
-          backgroundGames.slice(2, 7).map((game, i) => (
+          backgroundGames.slice(1, 6).map((game, i) => (
             <div
               className={`gameContainer ${i > 2 ? 'largeContainer' : ''}`}
               onClick={() => setMainGame(game)}
