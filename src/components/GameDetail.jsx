@@ -185,6 +185,7 @@ const Description = styled(motion.div)`
   }
   .description-header {
     font-size: 2.5rem;
+    user-select: none;
     color: #eeeeee;
     margin-top: 0;
     padding-top: 0;
