@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 // Styling and Animation
@@ -20,6 +20,8 @@ import Sidebar2 from '../components/Sidebar2';
 // import FilterMobileButton from '../components/FilterMobileButton';
 import Pagination from '../components/Pagination';
 import SearchForm from '../components/SearchForm';
+import useOutsideClick from '../components/useOutsideClick';
+
 const Browse = () => {
   // const dispatch = useDispatch();
   // const [textInput, setTextInput] = useState('');
@@ -32,8 +34,9 @@ const Browse = () => {
   //fetch data
   const { searched } = useSelector((state) => state.games);
   // media
-
+  const sidebarRef = useRef();
   const [showSidebar, setShowSidebar] = useState(false);
+
   // window.addEventListener('resize', () => {
   //   if (window.innerWidth > 992) setShowSidebar(true);
   // });
@@ -79,7 +82,6 @@ const Browse = () => {
   return (
     <div>
       <StyledBanner className='banner'>
-        {/* <img src={bg} alt='' /> */}
         <div className='line'></div>
       </StyledBanner>
       <StyledPageTitle>Games</StyledPageTitle>
@@ -88,9 +90,14 @@ const Browse = () => {
         className={`content-container ${showSidebar ? 'filtersActive' : ''}`}
       >
         {showSidebar && (
-          <div className='sidebar'>
-            <Sidebar2 setShowSidebar={setShowSidebar} />
-          </div>
+          <>
+            {window.innerWidth < 998 && (
+              <CardShadow onClick={() => setShowSidebar(false)}></CardShadow>
+            )}
+            <div className='sidebar' ref={sidebarRef}>
+              <Sidebar2 setShowSidebar={setShowSidebar} />
+            </div>
+          </>
         )}
 
         <SearchForm />
@@ -99,10 +106,6 @@ const Browse = () => {
         </button>
         {searched.games.length > 0 && (
           <>
-            {/* <div className='header'>
-              <img src={searched[0].background_image} alt={searched[0].name} />
-              <h2>Games</h2>
-            </div> */}
             <AnimateSharedLayout type='crossfade'>
               <AnimatePresence>
                 {pathId && <GameDetail pathId={pathId} />}
@@ -118,7 +121,6 @@ const Browse = () => {
                   />
                 ))}
               </StyledGamesList>
-
               <Pagination list={searched} />
             </AnimateSharedLayout>
           </>
@@ -175,7 +177,7 @@ const StyledContainer = styled.div`
   }
   .sidebar {
     /* display: none; */
-    z-index: 10;
+    z-index: 50;
     position: absolute;
     width: 50%;
     max-width: 220px;
@@ -210,7 +212,6 @@ const StyledPageTitle = styled.h1`
   margin: 0 auto;
   user-select: none;
   padding-top: 6rem;
-
   font-size: 3rem;
   color: #c2c2c2;
   @media (min-width: 576px) {
@@ -237,5 +238,16 @@ const StyledGamesList = styled(motion.div)`
     grid-area: 2/ 3/ 3/ 12;
   }
 `;
-
+const CardShadow = styled(motion.div)`
+  width: 100%;
+  min-height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  @media (min-width: 992px) {
+    display: none;
+  }
+`;
 export default Browse;
