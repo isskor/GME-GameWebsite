@@ -116,6 +116,7 @@ const StyledSidebar = styled(motion.ul)`
     h3 {
       color: white;
       font-size: 1rem;
+      user-select: none;
       /* align-self: flex-start; */
       align-self: center;
       /* padding: 0 2rem 2rem; */

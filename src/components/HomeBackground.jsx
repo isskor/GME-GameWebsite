@@ -99,6 +99,7 @@ const StyledBGConatiner = styled.div`
       .mainGame-title {
         font-size: 3rem;
         padding: 1rem;
+        user-select: none;
         -webkit-text-stroke-width: 1px;
         -webkit-text-stroke-color: rgba(182, 179, 179, 0.5);
         /* width: 60%; */
@@ -160,6 +161,7 @@ const StyledShowcaseGames1 = styled.div`
     color: white;
     align-self: flex-end;
     padding: 1rem;
+    user-select: none;
   }
   @media (min-width: 768px) {
     grid-template-columns: repeat(5, minmax(100px, 1fr));

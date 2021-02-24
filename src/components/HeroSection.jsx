@@ -55,6 +55,7 @@ const StyledHeroSection = styled.section`
     h3 {
       color: white;
       text-align: center;
+      user-select: none;
     }
     h1 {
       @media (min-width: 768px) {
