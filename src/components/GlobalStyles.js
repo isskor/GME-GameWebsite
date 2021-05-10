@@ -24,9 +24,9 @@ const GlobalStyles = createGlobalStyle`
     }
     h2{
         font-size: 3rem;
-        font-family: 'Abril Fatface', cursive;
-        font-weight:lighter;
         color: #333;
+        font-family: 'Rubik', sans-serif;
+
     }
     h3{
         font-size: 1.3rem;
@@ -36,7 +36,7 @@ const GlobalStyles = createGlobalStyle`
     p{
         font-size: 1.2rem;
         line-height: 200%;
-        color: #696969
+        color:  #d4d4d4;
     }
     a{
         text-decoration: none;

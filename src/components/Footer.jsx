@@ -78,6 +78,7 @@ const StyledFooterContainer = styled.div`
   grid-template-rows: 220px 1fr 100px 20px;
   /* grid-template-rows: 2fr 1fr 1fr 20px; */
   grid-template-columns: 2fr 2fr;
+ 
   @media (min-width: 992px) {
     margin-top: 10rem;
   }

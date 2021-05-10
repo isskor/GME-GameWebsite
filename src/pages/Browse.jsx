@@ -45,7 +45,9 @@ const Browse = () => {
       <StyledBanner className='banner'>
         <div className='line'></div>
       </StyledBanner>
-      <StyledPageTitle>Games</StyledPageTitle>
+      <div className='wrapper'>
+        <StyledPageTitle>Games</StyledPageTitle>
+      </div>
 
       <StyledContainer
         className={`content-container ${showSidebar ? 'filtersActive' : ''}`}
