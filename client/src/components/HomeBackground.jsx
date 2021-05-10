@@ -65,27 +65,28 @@ const HomeBackground = ({ backgroundGames }) => {
 };
 
 const StyledBGConatiner = styled.div`
+  display: flex;
+  gap: 1rem;
+  max-width: 1400px;
+  margin: 2rem auto 0;
   img {
     width: 100%;
   }
 
   .mainGame {
-    grid-area: 1/1;
+    /* grid-area: 1/1; */
     display: grid;
     justify-items: center;
+    @media (min-width: 768px) {
+      /* height: calc(90vh - 90px); */
+      flex-basis: 80%;
+    }
     img {
       grid-area: 1/1;
-      width: 100%;
       object-fit: cover;
       object-position: 50% 10%;
-      height: calc(80vh - 90px);
+      height: 100%;
       /* height: 90vh; */
-      @media (min-width: 768px) {
-        height: calc(90vh - 90px);
-      }
-      @media (min-width: 992px) {
-        height: calc(80vh - 90px);
-      }
     }
     .mainGameDesc {
       grid-area: 1/1;
@@ -138,19 +139,19 @@ const StyledBGConatiner = styled.div`
   }
 `;
 const StyledShowcaseGames1 = styled.div`
-  grid-area: 1/1;
-  display: grid;
-  align-self: end;
-  grid-template-columns: repeat(6, minmax(40px, 1fr));
+  display: none;
+  flex-direction: column;
   box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
+  @media (min-width: 576px) {
+    flex-basis: 20%;
+    display: flex;
+    flex-direction: column;
+  }
   .gameContainer {
-    grid-column: span 2;
+    flex: 0.2;
     display: grid;
     cursor: pointer;
     box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
-  }
-  .largeContainer {
-    grid-column: span 3;
   }
   img {
     width: 100%;
@@ -165,93 +166,5 @@ const StyledShowcaseGames1 = styled.div`
     padding: 1rem;
     user-select: none;
   }
-  @media (min-width: 768px) {
-    grid-template-columns: repeat(5, minmax(100px, 1fr));
-    .gameContainer {
-      grid-column: span 1;
-    }
-    .largeContainer {
-      grid-column: span 1;
-    }
-  }
 `;
-// const StyledBgContainer = styled.div`
-//   display: grid;
-//   width: 100%;
-//   top: 0;
-//   left: 0;
-//   margin: 0 auto;
-//   justify-items: center;
-//   background: rgba(0, 0, 0, 0.6);
-//   box-shadow: -20px -20px 60px rgba(151, 151, 151, 0.1),
-//     20px 20px 60px rgba(0, 0, 0, 0.3);
-//   .mainGame {
-//     grid-area: 1/1;
-//     display: grid;
-//     img {
-//       grid-area: 1/1;
-//       width: 100%;
-//       object-fit: cover;
-//       object-position: 50% 10%;
-//       height: calc(80vh - 90px);
-//     }
-//     .mainGameDesc {
-//       grid-area: 1/1;
-//       justify-self: center;
-//       align-self: center;
-//       color: rgba(0, 0, 0, 0.4);
-//       /* background-color: rgba(0, 0, 0, 0.6); */
-//       width: 100%;
-//       padding: 1rem 2rem;
-//       text-align: center;
-
-//       .mainGame-title {
-//         font-size: 10rem;
-//         padding: 1rem;
-//         -webkit-text-stroke-width: 1px;
-//         -webkit-text-stroke-color: rgba(182, 179, 179, 0.5);
-//         /* width: 60%; */
-//       }
-//       .mainGame-button {
-//         margin: 5rem 2rem;
-//         display: inline-block;
-//         font-size: 0.75rem;
-//         padding: 0.75rem 1.5rem;
-//         background-color: #132575;
-//         border: 2px solid #132575;
-//         border-radius: 4px;
-//         opacity: 0.4;
-//         color: #eee;
-//         transition: all 0.3s ease;
-//         &:hover {
-//           opacity: 1;
-//         }
-//       }
-//     }
-//   }
-// `;
-// const StyledShowcaseGames = styled.div`
-//   display: grid;
-//   align-self: end;
-//   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-//   box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
-
-//   .gameContainer {
-//     display: grid;
-//     cursor: pointer;
-//     box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
-//   }
-//   img {
-//     width: 100%;
-//     height: 20vh;
-//     object-fit: cover;
-//     grid-area: 1/1;
-//   }
-//   h4 {
-//     grid-area: 1/1;
-//     color: white;
-//     align-self: flex-end;
-//     padding: 1rem;
-//   }
-// `;
 export default HomeBackground;

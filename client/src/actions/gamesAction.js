@@ -9,15 +9,24 @@ import {
   getGenresURL,
   getPlatformsURL,
   getStoresURL,
+  api,
 } from '../api';
 
 // Actions creator
 export const loadGames = () => async (dispatch) => {
-  const popular_Games = await axios.get(popularGamesURL());
-  const upcoming_Games = await axios.get(upcomingGamesURL());
-  const new_Games = await axios.get(newGamesURL());
+  // const popular_Games = await axios.get(popularGamesURL());
+  // const upcoming_Games = await axios.get(upcomingGamesURL());
+  // const new_Games = await axios.get(newGamesURL());
   // Fetch Data
-
+  const popular_Games = await api.get('/', {
+    params: { url: popularGamesURL() },
+  });
+  const upcoming_Games = await api.get('/', {
+    params: { url: upcomingGamesURL() },
+  });
+  const new_Games = await api.get('/', {
+    params: { url: newGamesURL() },
+  });
   // const GamesData = await axios.get(baseGamesURL());
 
   dispatch({
@@ -37,9 +46,9 @@ export const loadGames = () => async (dispatch) => {
 };
 
 export const loadFilters = () => async (dispatch) => {
-  const genres = await axios.get(getGenresURL());
-  const platforms = await axios.get(getPlatformsURL());
-  const stores = await axios.get(getStoresURL());
+  const genres = await api.get('/', { params: { url: getGenresURL() } });
+  const platforms = await api.get('/', { params: { url: getPlatformsURL() } });
+  const stores = await api.get('/', { params: { url: getStoresURL() } });
 
   dispatch({
     type: 'FETCH_FILTERS',
@@ -64,8 +73,10 @@ export const nextPage = (list, direction) => async (dispatch) => {
   });
 
   let _Games;
-  if (direction === 1) _Games = await axios.get(list.next);
-  if (direction === -1) _Games = await axios.get(list.prev);
+  if (direction === 1)
+    _Games = await api.get('/', { params: { url: list.next } });
+  if (direction === -1)
+    _Games = await api.get('/', { params: { url: list.prev } });
   // console.log(_Games.data.results);
 
   dispatch({
@@ -79,9 +90,9 @@ export const nextPage = (list, direction) => async (dispatch) => {
 };
 
 export const fetchSearch = (game_name, ...moreFilters) => async (dispatch) => {
-  const searchGamesData = await axios.get(
-    `${searchGameURL(game_name)}${moreFilters}`
-  );
+  const searchGamesData = await api.get('/', {
+    params: { url: `${searchGameURL(game_name)}${moreFilters}` },
+  });
   // console.log(dispatch);
   // console.log(`${searchGameURL(game_name)}${moreFilters}`);
   dispatch({

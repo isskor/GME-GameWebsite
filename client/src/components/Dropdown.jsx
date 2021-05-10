@@ -20,6 +20,7 @@ const Dropdown = ({
   };
 
   useOutsideClick(optionRef, handleOutsideClick);
+
   const handleInsideClick = (value) => {
     setActiveOption(value);
     setOpenList(false);

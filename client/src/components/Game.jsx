@@ -25,7 +25,12 @@ const Game = ({ name, released, id, image }) => {
     <StyledGame layoutId={id} onClick={loadDetailHandler}>
       <Link to={`/${curPath}/${id}`}>
         <motion.div className='card-container'>
-          <motion.img loading='lazy' src={resizeImg(image, 420)} alt={name} />
+          <motion.img
+            layoutId={`${id}+image`}
+            loading='lazy'
+            src={resizeImg(image, 420)}
+            alt={name}
+          />
           <h3>{name}</h3>
         </motion.div>
       </Link>

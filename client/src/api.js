@@ -1,3 +1,12 @@
+import axios from 'axios';
+
+export const api = axios.create({
+  baseURL: 'https://gme-server.herokuapp.com/',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
 const base_url = 'https://api.rawg.io/api/';
 const API_KEY = process.env.REACT_APP_RAWG_KEY;
 // Get Date with 0 base
@@ -6,7 +15,6 @@ const getCurrentMonth = () => {
   if (month < 10) {
     return `0${month}`;
   }
-  console.log(API_KEY);
   return month;
 };
 const getCurrentDay = () => {
@@ -39,10 +47,11 @@ export const baseGamesURL = () =>
 
 // individual Game Detail
 
-export const gameDetailsURLS = (gameId) => `${base_url}games/${gameId}`;
+export const gameDetailsURLS = (gameId) =>
+  `${base_url}games/${gameId}?key=${API_KEY}`;
 // game screeenshots
 export const gameScreenshotURLS = (gameId) =>
-  `${base_url}games/${gameId}/screenshots`;
+  `${base_url}games/${gameId}/screenshots?key=${API_KEY}`;
 
 // searched game
 

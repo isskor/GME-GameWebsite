@@ -1,10 +1,13 @@
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
 // components
 import ImageGallery from './ImageGallery';
 import GameRatingsPercentage from './GameRatingsPercentage';
 import GameDetailHeader from './GameDetailHeader';
 import GameDetailInfo from './GameDetailInfo';
+// actions
+import { loadDetail } from '../actions/gameDetailAction';
 // Styling and Animation
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
@@ -14,6 +17,8 @@ import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 
 const GameDetail = () => {
   const history = useHistory();
+  const params = useParams();
+  const dispatch = useDispatch();
   const { screen, game, isLoading } = useSelector((state) => state.gameDetail);
 
   const exitGameHandler = (e, btnClick) => {
@@ -24,7 +29,15 @@ const GameDetail = () => {
       history.goBack();
     }
   };
-
+  // Load details
+  // console.log(history);
+  // const curPath = history.location.pathname.slice(1);
+  // console.log(params.id);
+  // useEffect(() => {
+  //   if (history.action === 'POP' &&) {
+  //     dispatch(loadDetail(params.id));
+  //   }
+  // }, [params.id]);
   // handle Images
   // add gameImage to fetched screen images and display in gallery
   const screens = screen.results.map((s) => s);
